@@ -22,15 +22,15 @@ public class MinDsat {
 
     private void solve() {
         int nextV;
-        nextV = color(minDegree,currColor); // Color V with min degree with the first color
+        nextV = color(minDegree); // Color V with min degree with the first color
         for (int i = 1; i < g.getV(); i++) {
-            nextV = color(nextV, currColor);
+            nextV = color(nextV);
         }
         System.out.println("Hello word");
     }
 
     //  Colors the vertex, also returns the next vertex to be colored
-    private int color(int vertex, int color) {
+    private int color(int vertex) {
         LinkedList<Integer> valid = getValidAdjacentsOf(vertex);
         int nextVertex;
         nextVertex = -99;

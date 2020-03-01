@@ -1,0 +1,18 @@
+
+BrelazColoringAlgorithm(graph)
+
+for each vertex v
+    saturationDeg(v) = 0;
+    uncoloredDeg(v) = deg(v);
+    putcolorsinacertainorder c1,c2,...,ck;
+
+    while notallverticesareprocessed
+        v = a vertex with highest saturation degree or,
+        in case of a tie, vertex with maximum uncolored degree;
+        j = the smallest index of color that does not appear in any neighbor of v;
+
+        for each uncoloredvertex u adjacent to v
+            if no vertex adjacent to u is assigned color cj
+                saturationDeg(u)++;
+            uncoloredDeg(u)– –;
+            color(v) = cj;
