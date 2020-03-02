@@ -15,6 +15,7 @@ public class DSAT {
 
     public DSAT(Graph g) {
         this.g = g;
+        g.startTimer();
         this.V = g.getV();
         this.saturationDeg = new int[V];
         this.uncoloredDeg = new int[V];
@@ -67,6 +68,7 @@ public class DSAT {
             g.color(v, j);
             vPredecessor = v;
         }
+        System.out.println("Time: "+ g.getTime());
     }
 
     private boolean hasNeighborColored(int vertex, int color) {

@@ -3,8 +3,11 @@ import FirstFit.FirstFit;
 import Graph.Graph;
 import MinDSAT.MinDsat;
 import ReadFromDatabase.ReadFromDatabase;
+
+import java.io.IOException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // From my example
         //Graph g = new Graph(8);
         /*
@@ -33,16 +36,18 @@ public class Main {
         new MinDsat(g);
         //new DSAT(g);*/
 
-        ReadFromDatabase rfd = new ReadFromDatabase();
+        //ReadFromDatabase rfd = new ReadFromDatabase();
 
         //Test MinDsat
-        testMinDsat(rfd);
+
+        //testMinDsat(rfd);
 
         //Test FirstFit
         //testFirstFit(rfd);
 
         //Test DSAT
         //testDSAT(rfd);
+        new ErdosRenyi(50,0.5f);
     }
 
     private static void testDSAT(ReadFromDatabase rfd) {

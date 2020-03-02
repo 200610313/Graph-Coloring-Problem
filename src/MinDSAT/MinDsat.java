@@ -13,6 +13,7 @@ public class MinDsat {
 
     public MinDsat(Graph g) {
         this.g = g;
+        g.startTimer();
         this.uncolored = new LinkedList<>();
         this.saturationDeg = new int[g.getV()];
         initUncolored();// Set all V's to uncolored
@@ -26,6 +27,7 @@ public class MinDsat {
         for (int i = 1; i < g.getV(); i++) {
             nextV = color(nextV);
         }
+        System.out.println("Time: "+ g.getTime());
     }
 
     //  Colors the vertex, also returns the next vertex to be colored

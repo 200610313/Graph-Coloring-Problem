@@ -8,7 +8,20 @@ public class Graph {
     private int V;
     private LinkedList<Integer> adjListArray[];
     private int[] vColors; // Stores the colors of the vertices
+    private long start;
+    private long finish;
+public void startTimer(){
+    start = System.nanoTime();
+}
 
+    /**
+     *
+     * @return time elapsed in milliseconds
+     */
+    public long getTime(){
+    finish = System.nanoTime();
+    return (finish-start)/1000000;
+}
     public int[] getvColors() {
         return vColors;
     }
