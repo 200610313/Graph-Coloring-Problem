@@ -38,7 +38,6 @@ public class ReadFromDatabase {
                     vertex2 = (sc.nextInt()) - 1;
                     g.addEdge(g, vertex1, vertex2);
                     //System.out.println("Retrieved: " + vertex1 + " " + vertex2);
-
                 }
             }
             return g;

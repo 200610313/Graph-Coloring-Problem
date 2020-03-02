@@ -47,7 +47,14 @@ public class Main {
 
         //Test DSAT
         //testDSAT(rfd);
-        new ErdosRenyi(50,0.5f);
+/*
+        int start = 10;
+        for (int i = 0; i < 10; i++) {
+            new ErdosRenyi(start,0.5f);
+            start=start+10;
+        }
+*/
+
     }
 
     private static void testDSAT(ReadFromDatabase rfd) {
