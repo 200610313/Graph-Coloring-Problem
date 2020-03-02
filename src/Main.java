@@ -43,10 +43,11 @@ public class Main {
         //testMinDsat(rfd);
 
         //Test FirstFit
-        testFirstFit(rfd);
+        //testFirstFit(rfd);
 
         //Test DSAT
-        //testDSAT(rfd);
+        testDSAT(rfd);
+
 /*
         int start = 10;
         for (int i = 0; i < 10; i++) {
@@ -54,6 +55,7 @@ public class Main {
             start=start+10;
         }
 */
+
 
     }
 

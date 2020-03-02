@@ -18,9 +18,9 @@ public void startTimer(){
      *
      * @return time elapsed in milliseconds
      */
-    public long getTime(){
+    public double getTime(){
     finish = System.nanoTime();
-    return (finish-start)/1000000;
+    return (double)(finish-start)/1000000;
 }
     public int[] getvColors() {
         return vColors;

@@ -27,7 +27,7 @@ public class ErdosRenyi {
     private void generate() throws IOException {
         Random rand = new Random();
 
-        String fn = V+"-"+Integer.toString(rand.nextInt(100000)) +".txt";
+        String fn = V+"-"+Integer.toString(rand.nextInt(100000));
 
         File fout = new File("src\\reyni\\"+fn);
         FileOutputStream fos = new FileOutputStream(fout);
