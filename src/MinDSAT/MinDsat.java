@@ -27,7 +27,7 @@ public class MinDsat {
         for (int i = 1; i < g.getV(); i++) {
             nextV = color(nextV);
         }
-        System.out.println("Time: "+ g.getTime());
+
     }
 
     //  Colors the vertex, also returns the next vertex to be colored

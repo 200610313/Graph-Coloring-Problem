@@ -26,7 +26,6 @@ public class FirstFit {
             int color = findColor(i);
             graph.color(i , color);
         }
-        System.out.println("Time: "+ graph.getTime());
     }
 
     private int findColor(int vertex){

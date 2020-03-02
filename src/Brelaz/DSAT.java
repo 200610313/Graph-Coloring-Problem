@@ -68,7 +68,7 @@ public class DSAT {
             g.color(v, j);
             vPredecessor = v;
         }
-        System.out.println("Time: "+ g.getTime());
+
     }
 
     private boolean hasNeighborColored(int vertex, int color) {

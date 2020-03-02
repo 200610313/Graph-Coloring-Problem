@@ -33,11 +33,11 @@ public class ErdosRenyi {
         FileOutputStream fos = new FileOutputStream(fout);
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 
-
+        bw.newLine();
         for (int i = 0; i < V; i++) {
             for (int j = i+1; j < V; j++) {
                 r = rand.nextFloat();
-                if (r>=p){
+                if (r<=p){
                     edges++;
                     bw.write("e "+i+" "+j);
                     bw.newLine();

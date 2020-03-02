@@ -36,21 +36,21 @@ public class Main {
         new MinDsat(g);
         //new DSAT(g);*/
 
-        //ReadFromDatabase rfd = new ReadFromDatabase();
+        ReadFromDatabase rfd = new ReadFromDatabase();
 
         //Test MinDsat
 
         //testMinDsat(rfd);
 
         //Test FirstFit
-        //testFirstFit(rfd);
+        testFirstFit(rfd);
 
         //Test DSAT
         //testDSAT(rfd);
 /*
         int start = 10;
         for (int i = 0; i < 10; i++) {
-            new ErdosRenyi(start,0.5f);
+            new ErdosRenyi(start,(i+1)*0.1f);
             start=start+10;
         }
 */
@@ -64,18 +64,20 @@ public class Main {
                 break;
             }
             new DSAT(g);
-            System.out.println("DSAT used "+g.countColors());
+            System.out.println("DSAT used: "+g.countColors());
+            System.out.println("DSAT time: "+ g.getTime());
         }
     }
 
-    private static void testFirstFit(ReadFromDatabase rfd) {
+    public static void testFirstFit(ReadFromDatabase rfd) {
         for(int i = 0; i < rfd.getFilesSize(); i++){
             Graph g = rfd.readFile(i);
             if(g == null){
                 break;
             }
             new FirstFit(g);
-            System.out.println("FirstFit used "+g.countColors());
+            System.out.println("FirstFit used: "+g.countColors());
+            System.out.println("FirstFit time: "+ g.getTime());
         }
     }
 
@@ -86,7 +88,8 @@ public class Main {
                 break;
             }
             new MinDsat(g);
-            System.out.println("MinDsat used "+g.countColors());
+            System.out.println("MinDsat used: "+g.countColors());
+            System.out.println("MinDsat time: "+ g.getTime());
         }
     }
 
