@@ -1,4 +1,6 @@
-package customgraph;
+package Graph;
+
+import java.util.Arrays;
 import java.util.LinkedList;
 //Contributed by Sumit Ghosh, GeeksForGeeks
 //Graph implementation : Undirected, unweighted, LinkedList
@@ -34,14 +36,14 @@ public class Graph {
     }
 
     // Adds an edge to an undirected text2Graph
-    public void addEdge(int src, int dest)
+    public void addEdge(Graph g, int src, int dest)
     {
         // Add an edge from src to dest.
-        adjListArray[src].add(dest);
+        g.adjListArray[src].add(dest);
 
         // Since text2Graph is undirected, add an edge from dest
         // to src also
-        adjListArray[dest].add(src);
+        g.adjListArray[dest].add(src);
     }
 
     // A utility function to print the adjacency list
@@ -59,9 +61,32 @@ public class Graph {
         }
     }
 
+    //temporary
+    public void printSolution(){
+        for(int i = 0; i < adjListArray.length; i++){
+            System.out.print("(Vertex: " + i + "; Color: " + getColor(i) + ") ");
+            if((i+1)%5 == 0){
+                System.out.println();
+            }
+        }
+
+        int colors = Arrays.stream(vColors).max().getAsInt();
+        System.out.println("\nUsed "+colors+" colors.");
+    }
+
+    public int countColors(){
+        return Arrays.stream(vColors).max().getAsInt();
+    }
     public void color(int vertex, int color) {
         vColors[vertex] = color;
     }
+    public int getColor(int vertex) {
+        return vColors[vertex];
+    }
+    public LinkedList<Integer> getAdjacent(int vertex, Graph graph){
+        return graph.adjListArray[vertex];
+    }
+
 }
 
 

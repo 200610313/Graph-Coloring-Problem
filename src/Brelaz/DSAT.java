@@ -1,6 +1,6 @@
 package Brelaz;
 
-import customgraph.Graph;
+import Graph.Graph;
 
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -67,9 +67,6 @@ public class DSAT {
             g.color(v, j);
             vPredecessor = v;
         }
-        for (int i = 0; i < V; i++) {
-            System.out.println(i+" is colored "+ g.getvColors()[i]);
-        }
     }
 
     private boolean hasNeighborColored(int vertex, int color) {
@@ -126,6 +123,18 @@ public class DSAT {
                 else//  Least degree
                     nextVertex = ithValidNeighborWithMaxSAT;
             }
+            //  If equal saturation, try mindegree
+            if (ctr == numOfValidNeighbors){
+                //  check first if all degrees equal
+                if (ctr2 == numOfValidNeighbors)    // if all equal degrees random
+                    nextVertex = randomFromUncolored();
+                else    // else choose vertex with min degree
+                    nextVertex = ithValidNeighborWithMaxUncolored;
+            }
+            else {
+                nextVertex = ithValidNeighborWithMaxSAT;
+            }
+            return nextVertex;
         }
         return nextVertex;
     }

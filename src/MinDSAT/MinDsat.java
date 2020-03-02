@@ -1,6 +1,6 @@
-package vRandom;
+package MinDSAT;
 
-import customgraph.Graph;
+import Graph.Graph;
 
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -23,13 +23,8 @@ public class MinDsat {
     private void solve() {
         int nextV;
         nextV = color(minDegree); // Color V with min degree with the first color
-        System.out.println("Starting with: "+minDegree);
         for (int i = 1; i < g.getV(); i++) {
-            System.out.println("Coloring Vertex "+nextV);
             nextV = color(nextV);
-        }
-        for (int i = 0; i < g.getV(); i++) {
-            System.out.println(i+" is colored "+ g.getvColors()[i]);
         }
     }
 
