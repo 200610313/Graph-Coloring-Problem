@@ -19,7 +19,6 @@ public class DSAT {
         this.saturationDeg = new int[V];
         this.uncoloredDeg = new int[V];
         this.uncolored = new LinkedList<>();
-
         initialize();
     }
 
@@ -52,9 +51,6 @@ public class DSAT {
                 validAdjacents = getValidAdjacentsOf(vPredecessor);
                 v = maxSATorMaxUncolored(vPredecessor, validAdjacents);
             }
-            if (v == 0){
-                System.out.println("b");
-            }
             validAdjacents = getValidAdjacentsOf(v);
 
             int vALen = validAdjacents.size();
@@ -63,7 +59,6 @@ public class DSAT {
                 int ithNeighborOfv = validAdjacents.get(i);
                 if (hasNeighborColored(ithNeighborOfv, j) == false) {
                     saturationDeg[ithNeighborOfv]++;
-                    System.out.println("Increased saturation of " + ithNeighborOfv);
                 }
                 uncoloredDeg[ithNeighborOfv]--;
             }
@@ -94,9 +89,9 @@ public class DSAT {
         //  if valid 1 return 0th valid
         //  Please check this part of MinDsat
         int nextVertex = -1;
+
         if (validAdjacents.size() == 0 || getDegree(vPredecessor) == 0) {
             nextVertex = randomFromUncolored();
-            System.out.println("random");
 
         } else if (validAdjacents.size() == 1) {
             nextVertex = validAdjacents.get(0);
@@ -126,14 +121,12 @@ public class DSAT {
             if (ctr == numOfValidNeighbors) {
                 nextVertex = ithValidNeighborWithMaxUncolored;
             } else {
-                if (ctr2==numOfValidNeighbors)
+                if (ctr2 == numOfValidNeighbors)
                     nextVertex = validAdjacents.get(0);
                 else//  Least degree
                     nextVertex = ithValidNeighborWithMaxSAT;
             }
-
         }
-        System.out.println("colored " + nextVertex);
         return nextVertex;
     }
 
@@ -167,7 +160,6 @@ public class DSAT {
         }
         return 1;
     }
-
 
     private LinkedList<Integer> getValidAdjacentsOf(int vertex) {
         LinkedList<Integer> valid = new LinkedList<>();
