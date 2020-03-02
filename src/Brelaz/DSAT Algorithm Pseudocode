@@ -1,5 +1,5 @@
 
-BrelazColoringAlgorithm(graph)
+BrelazColoringAlgorithm(text2Graph)
 
 for each vertex v
     saturationDeg(v) = 0;

@@ -33,19 +33,19 @@ public class Graph {
         return adjListArray;
     }
 
-    // Adds an edge to an undirected graph
+    // Adds an edge to an undirected text2Graph
     public void addEdge(int src, int dest)
     {
         // Add an edge from src to dest.
         adjListArray[src].add(dest);
 
-        // Since graph is undirected, add an edge from dest
+        // Since text2Graph is undirected, add an edge from dest
         // to src also
         adjListArray[dest].add(src);
     }
 
     // A utility function to print the adjacency list
-    // representation of graph
+    // representation of text2Graph
     public void printGraph(Graph graph)
     {
         for(int v = 0; v < graph.V; v++)
