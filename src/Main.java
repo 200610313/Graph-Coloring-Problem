@@ -5,8 +5,19 @@ import MinDSAT.MinDsat;
 import ReadFromDatabase.ReadFromDatabase;
 
 import java.io.IOException;
+import java.util.HashMap;
+
 
 public class Main {
+    private static int[] minDsat;
+    private static double[] minDsatT;
+
+    private static int[] FF;
+    private static double[] ffT;
+
+    private static int[] DSAT;
+    private static double[] dsatT;
+
     public static void main(String[] args) throws IOException {
         // From my example
         //Graph g = new Graph(8);
@@ -35,18 +46,39 @@ public class Main {
         //new FirstFit(g);
         new MinDsat(g);
         //new DSAT(g);*/
+        int N = 1000;
+        minDsat = new int[N];
+        minDsatT = new double[N];
+
+        FF = new int[N];
+        ffT = new double[N];
+
+        DSAT = new int[N];
+        dsatT = new double[N];
 
         ReadFromDatabase rfd = new ReadFromDatabase();
+        for (int i = 0; i < rfd.getFilesSize(); i++) {
+            for (int j = 0; j < N; j++) {
+                //Test MinDsat
+                testMinDsat(rfd,i,j);
 
-        //Test MinDsat
+                //Test FirstFit
+                testFirstFit(rfd,i,j);
 
-        //testMinDsat(rfd);
+                //Test DSAT
+                testDSAT(rfd,i,j);
+            }
+            System.out.println("Filename: "+ rfd.getFN(i));
+            System.out.println("MINDSAT COLOR: "+mode(minDsat));
+            System.out.println("MINDSAT TIME: "+average(minDsatT,minDsatT.length));
+            System.out.println("FIRSTFIT COLOR: "+mode(FF));
+            System.out.println("FIRSTFIT TIME: "+average(ffT,ffT.length));
+            System.out.println("DSAT COLOR: "+mode(DSAT));
+            System.out.println("DSAT TIME: "+average(dsatT,dsatT.length));
+            System.out.println("");
+        }
 
-        //Test FirstFit
-        //testFirstFit(rfd);
-
-        //Test DSAT
-        testDSAT(rfd);
+        /*System.out.println("MinDSAT mode color used: "+ mode(minDsat));*/
 
 /*
         int start = 10;
@@ -56,43 +88,100 @@ public class Main {
         }
 */
 
-
     }
 
-    private static void testDSAT(ReadFromDatabase rfd) {
-        for(int i = 0; i < rfd.getFilesSize(); i++){
-            Graph g = rfd.readFile(i);
+
+    static double avgRec(double a[], int i, int n)
+    {
+        // Last element
+        if (i == n-1)
+            return a[i];
+
+        // When index is 0, divide sum computed so
+        // far by n.
+        if (i == 0)
+            return ((a[i] + avgRec(a, i+1, n))/n);
+
+        // Compute sum
+        return (a[i] + avgRec(a, i+1, n));
+    }
+
+    // Function that return average of an array.
+    static double average(double a[], int n)
+    {
+        return avgRec(a, 0, n);
+    }
+    public static int mode(int []array)
+    {
+        HashMap<Integer,Integer> hm = new HashMap<Integer,Integer>();
+        int max  = 1;
+        int temp = 0;
+
+        for(int i = 0; i < array.length; i++) {
+
+            if (hm.get(array[i]) != null) {
+
+                int count = hm.get(array[i]);
+                count++;
+                hm.put(array[i], count);
+
+                if(count > max) {
+                    max  = count;
+                    temp = array[i];
+                }
+            }
+
+            else
+                hm.put(array[i],1);
+        }
+        return temp;
+    }
+    private static void testDSAT(ReadFromDatabase rfd, int fileIndex, int iteration) {
+/*        for(int j = 0; j < rfd.getFilesSize(); j++){
+            Graph g = rfd.readFile(j);
             if(g == null){
                 break;
             }
             new DSAT(g);
-            System.out.println("DSAT used: "+g.countColors());
-            System.out.println("DSAT time: "+ g.getTime());
-        }
+            DSAT[i] = g.countColors();
+            dsatT[i] = g.getTime();
+        }*/
+        Graph g = rfd.readFile(fileIndex);
+        new DSAT(g);
+        DSAT[iteration] = g.countColors();
+        dsatT[iteration] = g.getTime();
     }
 
-    public static void testFirstFit(ReadFromDatabase rfd) {
-        for(int i = 0; i < rfd.getFilesSize(); i++){
-            Graph g = rfd.readFile(i);
+    public static void testFirstFit(ReadFromDatabase rfd, int fileIndex, int iteration) {
+/*        for(int j = 0; j < rfd.getFilesSize(); j++){
+            Graph g = rfd.readFile(j);
             if(g == null){
                 break;
             }
             new FirstFit(g);
-            System.out.println("FirstFit used: "+g.countColors());
-            System.out.println("FirstFit time: "+ g.getTime());
-        }
+            FF[i] = g.countColors();
+            ffT[i] = g.getTime();
+        }*/
+        Graph g = rfd.readFile(fileIndex);
+        new FirstFit(g);
+        FF[iteration] = g.countColors();
+        ffT[iteration] = g.getTime();
     }
 
-    private static void testMinDsat(ReadFromDatabase rfd) {
-        for(int i = 0; i < rfd.getFilesSize(); i++){
-            Graph g = rfd.readFile(i);
+    private static void testMinDsat(ReadFromDatabase rfd, int fileIndex, int iteration) {
+        /*for(int j = 0; j < rfd.getFilesSize(); j++){
+            Graph g = rfd.readFile(j);
             if(g == null){
                 break;
             }
             new MinDsat(g);
-            System.out.println("MinDsat used: "+g.countColors());
-            System.out.println("MinDsat time: "+ g.getTime());
-        }
+            minDsat[i] = g.countColors();
+            minDsatT[i] = g.getTime();
+        }*/
+        Graph g = rfd.readFile(fileIndex);
+        new MinDsat(g);
+        minDsat[iteration] = g.countColors();
+        minDsatT[iteration] = g.getTime();
     }
 
 

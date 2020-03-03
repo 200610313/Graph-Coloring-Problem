@@ -82,7 +82,6 @@ public void startTimer(){
                 System.out.println();
             }
         }
-
         int colors = Arrays.stream(vColors).max().getAsInt();
         System.out.println("\nUsed "+colors+" colors.");
     }
@@ -100,6 +99,15 @@ public void startTimer(){
         return graph.adjListArray[vertex];
     }
 
+    /**
+     * Adding edge to directed graph
+     * @param g
+     * @param src
+     * @param dest
+     */
+    public void addDirectedEdge(Graph g, int src, int dest) {
+        g.adjListArray[src].add(dest);
+    }
 }
 
 

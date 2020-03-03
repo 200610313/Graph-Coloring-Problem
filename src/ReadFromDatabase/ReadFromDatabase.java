@@ -10,13 +10,23 @@ public class ReadFromDatabase {
 
     public ReadFromDatabase(){
         //change paren
-        File parentPath = new File("src\\queen");
+        File parentPath = new File("src\\mycielski");
         files = parentPath.listFiles();
         filesRead = 0;
+    }
+    public String getFN(int index){
+        String fn;
+        fn = "";
+
+        File input = new File(getPath(index));
+        fn=input.getName();
+
+        return fn;
     }
 
     public Graph readFile(int i){
         File input = new File(getPath(i));
+/*        System.out.println(input.getName());*/
         int numberOfVertices = 0;
         try {
             Scanner sc = new Scanner(input);
@@ -37,6 +47,9 @@ public class ReadFromDatabase {
                     vertex1 = sc.nextInt() - 1;
                     vertex2 = (sc.nextInt()) - 1;
                     g.addEdge(g, vertex1, vertex2);
+                    //
+                    //This is for undirected
+                    //g.addDirectedEdge(g, vertex1, vertex2);
                     //System.out.println("Retrieved: " + vertex1 + " " + vertex2);
                 }
             }

@@ -34,7 +34,7 @@ public class ErdosRenyi {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 
         bw.newLine();
-        for (int i = 0; i < V; i++) {
+        for (int i = 1; i < V; i++) {
             for (int j = i+1; j < V; j++) {
                 r = rand.nextFloat();
                 if (r<=p){
