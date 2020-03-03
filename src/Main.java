@@ -3,7 +3,6 @@ import FirstFit.FirstFit;
 import Graph.Graph;
 import MinDSAT.MinDsat;
 import ReadFromDatabase.ReadFromDatabase;
-
 import java.io.IOException;
 import java.util.HashMap;
 
