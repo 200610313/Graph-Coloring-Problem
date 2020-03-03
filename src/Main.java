@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 
+
 public class Main {
     private static int[] minDsat;
     private static double[] minDsatT;
@@ -57,6 +58,23 @@ public class Main {
         dsatT = new double[N];
 
         ReadFromDatabase rfd = new ReadFromDatabase();
+
+
+        analyze(rfd,N);
+
+        /*System.out.println("MinDSAT mode color used: "+ mode(minDsat));*/
+        generateRenyi();
+    }
+
+    private static void generateRenyi() throws IOException {
+        int start = 10;
+        for (int i = 0; i < 10; i++) {
+            new ErdosRenyi(start,(i+1)*0.1f);
+            start=start+10;
+        }
+    }
+
+    private static void analyze(ReadFromDatabase rfd, int N) {
         for (int i = 0; i < rfd.getFilesSize(); i++) {
             for (int j = 0; j < N; j++) {
                 //Test MinDsat
@@ -77,16 +95,6 @@ public class Main {
             System.out.println("DSAT TIME: "+average(dsatT,dsatT.length));
             System.out.println("");
         }
-
-        /*System.out.println("MinDSAT mode color used: "+ mode(minDsat));*/
-
-/*
-        int start = 10;
-        for (int i = 0; i < 10; i++) {
-            new ErdosRenyi(start,(i+1)*0.1f);
-            start=start+10;
-        }
-*/
 
     }
 

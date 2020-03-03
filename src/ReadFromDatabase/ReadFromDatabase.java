@@ -10,7 +10,7 @@ public class ReadFromDatabase {
 
     public ReadFromDatabase(){
         //change paren
-        File parentPath = new File("src\\mycielski");
+        File parentPath = new File("src\\renyi");
         files = parentPath.listFiles();
         filesRead = 0;
     }

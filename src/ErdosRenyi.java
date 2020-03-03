@@ -29,7 +29,7 @@ public class ErdosRenyi {
 
         String fn = V+"-"+Integer.toString(rand.nextInt(100000));
 
-        File fout = new File("src\\reyni\\"+fn);
+        File fout = new File("src\\renyi\\"+fn);
         FileOutputStream fos = new FileOutputStream(fout);
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 
