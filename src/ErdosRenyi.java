@@ -35,7 +35,7 @@ public class ErdosRenyi {
 
         bw.newLine();
         for (int i = 1; i < V + 1; i++) {
-            for (int j = i+1; j < V; j++) {
+            for (int j = i+1; j < V + 1; j++) {
                 r = rand.nextFloat();
                 if (r<=p){
                     edges++;
@@ -47,6 +47,4 @@ public class ErdosRenyi {
         bw.write("Count vertices: " +V+"\n"+"Count edges: "+edges);
         bw.close();
     }
-
-
 }
