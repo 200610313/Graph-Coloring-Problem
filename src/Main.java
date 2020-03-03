@@ -60,7 +60,7 @@ public class Main {
         ReadFromDatabase rfd = new ReadFromDatabase();
 
 
-        analyze(rfd,N);
+        //analyze(rfd,N);
 
         /*System.out.println("MinDSAT mode color used: "+ mode(minDsat));*/
         generateRenyi();

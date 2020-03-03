@@ -1,8 +1,0 @@
-p edge 10 5
-e 1 9
-e 3 4
-e 4 6
-e 6 8
-e 8 9
-Count vertices: 10
-Count edges: 5
