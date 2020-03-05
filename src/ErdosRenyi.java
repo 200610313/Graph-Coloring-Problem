@@ -25,26 +25,56 @@ public class ErdosRenyi {
     }
 
     private void generate() throws IOException {
+
+        // File Name
         Random rand = new Random();
 
-        String fn = V+"-"+Integer.toString(rand.nextInt(100000));
 
-        File fout = new File("src\\renyi\\"+fn);
-        FileOutputStream fos = new FileOutputStream(fout);
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+        // Contains the edges
+        StringBuilder sb2= new StringBuilder("");
 
-        bw.newLine();
         for (int i = 1; i < V + 1; i++) {
             for (int j = i+1; j < V + 1; j++) {
                 r = rand.nextFloat();
                 if (r<=p){
                     edges++;
-                    bw.write("e "+i+" "+j);
-                    bw.newLine();
+                    /*bw.write("e "+i+" "+j);
+                    bw.newLine();*/
+                    sb2.append("e"+" "+i+" "+j);
+                    sb2.append(System.getProperty("line.separator"));
                 }
             }
         }
-        bw.write("Count vertices: " +V+"\n"+"Count edges: "+edges);
-        bw.close();
+        String fn = V+"-"+edges;
+        //  Append fileName
+        StringBuilder sb = new StringBuilder(fn);
+        sb.append(System.getProperty("line.separator"));
+        //  Append V and E
+        sb.append("p edge"+" "+V+" "+edges);
+        sb.append(System.getProperty("line.separator"));
+        // Append edges
+        sb.append(sb2.toString());
+
+/*        PrintWriter out = new PrintWriter("src\\renyi\\"+fn);
+            out.println(sb.toString());
+            out.close();*/
+        BufferedWriter out = new BufferedWriter(new FileWriter("src\\renyi\\"+fn));
+
+//Add this to write a string to a file
+//
+        try {
+
+            out.write(sb.toString());  //Replace with the string
+            //you are trying to write
+        }
+        catch (IOException e)
+        {
+            System.out.println("Exception ");
+
+        }
+        finally
+        {
+            out.close();
+        }
     }
 }

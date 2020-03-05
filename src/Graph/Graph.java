@@ -32,7 +32,7 @@ public class Graph {
     public double getTime(){
     finish = System.nanoTime();
     return (double)(finish-start)/1000000;
-}
+    }
     public int[] getvColors() {
         return vColors;
     }

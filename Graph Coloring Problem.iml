@@ -25,5 +25,62 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$USER_HOME$/Desktop/poi-4.1.2" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="file://$USER_HOME$/Desktop/poi-4.1.2/docs/apidocs/dev" />
+        </JAVADOC>
+        <SOURCES />
+        <jarDirectory url="file://$USER_HOME$/Desktop/poi-4.1.2" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$USER_HOME$/Desktop/commons-compress-1.20" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="file://$USER_HOME$/Desktop/commons-compress-1.20/apidocs" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="file://$USER_HOME$/Desktop/commons-compress-1.20" />
+        </SOURCES>
+        <jarDirectory url="file://$USER_HOME$/Desktop/commons-compress-1.20" recursive="false" />
+        <jarDirectory url="file://$USER_HOME$/Desktop/commons-compress-1.20" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/xmlbeans-3.1.0/lib/resolver.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/xmlbeans-3.1.0/lib/xmlbeans-3.1.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/xmlbeans-3.1.0/lib/xmlbeans-3.1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$USER_HOME$/Desktop/xmlbeans-3.1.0/lib/xmlbeans-3.1.0-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$USER_HOME$/Desktop/xmlbeans-3.1.0/lib/xmlbeans-3.1.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$USER_HOME$/Desktop/commons-collections4-4.4" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="file://$USER_HOME$/Desktop/commons-collections4-4.4/apidocs" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="file://$USER_HOME$/Desktop/commons-collections4-4.4" />
+        </SOURCES>
+        <jarDirectory url="file://$USER_HOME$/Desktop/commons-collections4-4.4" recursive="false" />
+        <jarDirectory url="file://$USER_HOME$/Desktop/commons-collections4-4.4" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
   </component>
 </module>

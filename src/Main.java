@@ -23,6 +23,7 @@ public class Main {
     private static Scanner sc;
 
     private static ReadFromDatabase rfd;
+    private static double start, finish;
 
 
     private static int vSGB, vCAR, vRenyi;//  Holds the current vertex size
@@ -71,7 +72,6 @@ public class Main {
 
         DSAT = new int[N];
         dsatT = new double[N];
-        folder = "CAR";
 //        ReadFromDatabase rfd = new ReadFromDatabase("CAR");
 
         showmenu();
@@ -85,7 +85,7 @@ public class Main {
         boolean exitprogram = false;
         rfd = new ReadFromDatabase("CAR",0);
         do {
-            System.out.print("[0] Change Input Graph\n[1] Benchmark\n[2] Generate SGB Graphs\n[3] Generate CAR Graphs\n[4]Generate Erdos-Renyi\n[5]Quit\n");
+            System.out.print("[0] Change Input Graph\n[1] Benchmark\n[2] Generate SGB Graphs\n[3] Generate CAR Graphs\n[4] Generate Erdos-Renyi\n[5] Quit\n");
             input = sc.nextInt();
             if (input == 0){
                 showGraphChoices();
@@ -100,7 +100,11 @@ public class Main {
 
             }
             else if (input == 4){
-
+                try {
+                    generateRenyi();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             else if (input == 5){
                 exitprogram = true;
@@ -111,10 +115,12 @@ public class Main {
         }while (!exitprogram);
     }
 
+
     private static void showGraphChoices() {
         System.out.print("\n[0] CAR\n[1] SGB\n[2] Erdos-Renyi\n");
         int input = sc.nextInt();
         if (input == 0){
+
             rfd = new ReadFromDatabase("CAR",0);
         }
         else if (input == 1){
@@ -128,15 +134,16 @@ public class Main {
         }
     }
 
-/*    private static void generateRenyi() throws IOException {
+    private static void generateRenyi() throws IOException {
         int start = 10;
-        for (int i = 0; i < 10; i++) {
-            new ErdosRenyi(start,(i+1)*0.1f);
+        for (int i = 0; i < 20; i++) {
+            ErdosRenyi er = new ErdosRenyi(start,(i+1)*0.1f);
             start=start+10;
         }
-    }*/
+    }
 
     private static void analyze(ReadFromDatabase rfd, int N) {
+        start = System.nanoTime();
         for (int i = 0; i < rfd.getFilesSize(); i++) {
             for (int j = 0; j < N; j++) {
                 //Test MinDsat
@@ -148,20 +155,38 @@ public class Main {
                 //Test DSAT
                 testDSAT(rfd,i,j);
             }
+            finish = System.nanoTime();
+
+            String graphType = rfd.getGraphType(),
+                    fileName = rfd.getFN(i);
+            int vSize = vSGB,
+                    eCount = eCAR,
+                    cMDSAT = mode(minDsat),cFF = mode(FF),cDSAT = mode(DSAT);
+
+            double tMDSAT = average(minDsatT, minDsatT.length),
+                    tFF = average(ffT,ffT.length),
+                    tDSAT = average(dsatT,dsatT.length);
+
+
+            new excelWriter(graphType,fileName,vSize,eCount,cMDSAT,tMDSAT,cFF,tFF,cDSAT, tDSAT, i);
+
+
+            System.out.println("\nGraph Type: "+rfd.getGraphType());
             System.out.println("Filename: "+ rfd.getFN(i));
             System.out.println("Vertex Size: "+vSGB);
             System.out.println("Edge Count: "+eCAR);
-            System.out.println("MINDSAT COLOR: "+mode(minDsat));
+            System.out.println("\nMINDSAT COLOR: "+mode(minDsat));
             System.out.println("MINDSAT TIME: "+average(minDsatT,minDsatT.length));
-            System.out.println("FIRSTFIT COLOR: "+mode(FF));
+            System.out.println("\nFIRSTFIT COLOR: "+mode(FF));
             System.out.println("FIRSTFIT TIME: "+average(ffT,ffT.length));
-            System.out.println("DSAT COLOR: "+mode(DSAT));
+            System.out.println("\nDSAT COLOR: "+mode(DSAT));
             System.out.println("DSAT TIME: "+average(dsatT,dsatT.length));
-            System.out.println("");
+
+
         }
-
+        double secondsElapsed = (double)(finish-start)/1000000000;
+        System.out.println("\nBenchmark ended after "+secondsElapsed+" seconds.");
     }
-
 
     static double avgRec(double a[], int i, int n)
     {
