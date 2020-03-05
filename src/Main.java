@@ -2,51 +2,67 @@ import Brelaz.DSAT;
 import FirstFit.FirstFit;
 import Graph.Graph;
 import MinDSAT.MinDsat;
-import ReadFromDatabase.ReadFromDatabase;
+import textToGraph.ReadFromDatabase;
 import java.io.IOException;
 import java.util.HashMap;
-
+import java.util.Scanner;
 
 
 public class Main {
-    private static int[] minDsat;
-    private static double[] minDsatT;
 
+    private static int[] minDsat;// <- Stores the approximation results of each vertices
+    private static double[] minDsatT;// <- And the time taken to finish the algorithm
+                                    // Size of the array = total number of iterations
     private static int[] FF;
     private static double[] ffT;
 
     private static int[] DSAT;
     private static double[] dsatT;
 
+    private static String folder;
+    private static Scanner sc;
+
+    private static ReadFromDatabase rfd;
+
+
+    private static int vSGB, vCAR, vRenyi;//  Holds the current vertex size
+    private static int eSGB, eCAR, eRenyi;//  And the number of edges
+                                          //  of the respective graphs
+    private static int N;
     public static void main(String[] args) throws IOException {
+
         // From my example
-        //Graph g = new Graph(8);
-        /*
-        g.addEdge(0,1);
-        g.addEdge(1,4);
-        g.addEdge(1,2);
-        g.addEdge(2,3);
-        g.addEdge(2,5);
-        g.addEdge(3,4);*/
+        /*Graph g = new Graph(8);
+
+        g.addEdge(g,0,1);
+        g.addEdge(g,1,4);
+        g.addEdge(g,1,2);
+        g.addEdge(g,2,3);
+        g.addEdge(g,2,5);
+        g.addEdge(g,3,4);*/
 
         // From Adam Drozdek's
-/*
-        g.addEdge(g,0,4);
-        g.addEdge(g,0,5);
-        g.addEdge(g,0,6);
-        g.addEdge(g,1,2);
-        g.addEdge(g,1,4);
-        g.addEdge(g,1,7);
-        g.addEdge(g,2,6);
-        g.addEdge(g,3,5);
-        g.addEdge(g,3,6);
-        g.addEdge(g,5,6);
-        g.addEdge(g,5,7);
-        g.addEdge(g,6,7);
+
+      /*  g.addEdge(g,0,4);*/
+      /*  g.addEdge(g,0,5);*/
+      /*  g.addEdge(g,0,6);*/
+      /*  g.addEdge(g,1,2);*/
+      /*  g.addEdge(g,1,4);*/
+      /*  g.addEdge(g,1,7);*/
+      /*  g.addEdge(g,2,6);*/
+      /*  g.addEdge(g,3,5);*/
+      /*  g.addEdge(g,3,6);*/
+      /*  g.addEdge(g,5,6);*/
+      /*  g.addEdge(g,5,7);*/
+      /*  g.addEdge(g,6,7);*/
         //new FirstFit(g);
-        new MinDsat(g);
-        //new DSAT(g);*/
-        int N = 1000;
+        //new MinDsat(g);
+/*        new DSAT(g);
+
+        int x = g.countColors();
+        System.out.println(x);*/
+        sc = new Scanner(System.in);
+        N = 1000;
         minDsat = new int[N];
         minDsatT = new double[N];
 
@@ -55,23 +71,70 @@ public class Main {
 
         DSAT = new int[N];
         dsatT = new double[N];
+        folder = "CAR";
+//        ReadFromDatabase rfd = new ReadFromDatabase("CAR");
 
-        ReadFromDatabase rfd = new ReadFromDatabase();
-
-
+        showmenu();
         //analyze(rfd,N);
-
         /*System.out.println("MinDSAT mode color used: "+ mode(minDsat));*/
-        generateRenyi();
+        //generateRenyi();
     }
 
-    private static void generateRenyi() throws IOException {
+    private static void showmenu() {
+        int input = 0;
+        boolean exitprogram = false;
+        rfd = new ReadFromDatabase("CAR",0);
+        do {
+            System.out.print("[0] Change Input Graph\n[1] Benchmark\n[2] Generate SGB Graphs\n[3] Generate CAR Graphs\n[4]Generate Erdos-Renyi\n[5]Quit\n");
+            input = sc.nextInt();
+            if (input == 0){
+                showGraphChoices();
+            }
+            else if (input == 1){
+                analyze(rfd, N);
+            }
+            else if (input == 2){
+
+            }
+            else if (input == 3){
+
+            }
+            else if (input == 4){
+
+            }
+            else if (input == 5){
+                exitprogram = true;
+            }
+            else {
+                showmenu();
+            }
+        }while (!exitprogram);
+    }
+
+    private static void showGraphChoices() {
+        System.out.print("\n[0] CAR\n[1] SGB\n[2] Erdos-Renyi\n");
+        int input = sc.nextInt();
+        if (input == 0){
+            rfd = new ReadFromDatabase("CAR",0);
+        }
+        else if (input == 1){
+            rfd = new ReadFromDatabase("SGB",1);
+        }
+        else if (input == 2){
+            rfd = new ReadFromDatabase("renyi",0);
+        }
+        else {
+            return;
+        }
+    }
+
+/*    private static void generateRenyi() throws IOException {
         int start = 10;
         for (int i = 0; i < 10; i++) {
             new ErdosRenyi(start,(i+1)*0.1f);
             start=start+10;
         }
-    }
+    }*/
 
     private static void analyze(ReadFromDatabase rfd, int N) {
         for (int i = 0; i < rfd.getFilesSize(); i++) {
@@ -86,6 +149,8 @@ public class Main {
                 testDSAT(rfd,i,j);
             }
             System.out.println("Filename: "+ rfd.getFN(i));
+            System.out.println("Vertex Size: "+vSGB);
+            System.out.println("Edge Count: "+eCAR);
             System.out.println("MINDSAT COLOR: "+mode(minDsat));
             System.out.println("MINDSAT TIME: "+average(minDsatT,minDsatT.length));
             System.out.println("FIRSTFIT COLOR: "+mode(FF));
@@ -144,52 +209,41 @@ public class Main {
         return temp;
     }
     private static void testDSAT(ReadFromDatabase rfd, int fileIndex, int iteration) {
-/*        for(int j = 0; j < rfd.getFilesSize(); j++){
-            Graph g = rfd.readFile(j);
-            if(g == null){
-                break;
-            }
-            new DSAT(g);
-            DSAT[i] = g.countColors();
-            dsatT[i] = g.getTime();
-        }*/
         Graph g = rfd.readFile(fileIndex);
         new DSAT(g);
+        identifyVerticesAndEdges(rfd,g);
         DSAT[iteration] = g.countColors();
         dsatT[iteration] = g.getTime();
     }
 
+    private static void identifyVerticesAndEdges(ReadFromDatabase rfd, Graph g) {
+        if (rfd.getGraphType().equals("CAR"));{
+            vCAR = g.getV();
+            eCAR = g.getEdges();
+        }
+        if (rfd.getGraphType().equals("SGB"));{
+            vSGB = g.getV();
+            eSGB = g.getEdges();
+        }
+        if (rfd.getGraphType().equals("renyi"));{
+            vRenyi = g.getV();
+            eRenyi = g.getEdges();
+        }
+    }
+
     public static void testFirstFit(ReadFromDatabase rfd, int fileIndex, int iteration) {
-/*        for(int j = 0; j < rfd.getFilesSize(); j++){
-            Graph g = rfd.readFile(j);
-            if(g == null){
-                break;
-            }
-            new FirstFit(g);
-            FF[i] = g.countColors();
-            ffT[i] = g.getTime();
-        }*/
         Graph g = rfd.readFile(fileIndex);
         new FirstFit(g);
+        identifyVerticesAndEdges(rfd,g);
         FF[iteration] = g.countColors();
         ffT[iteration] = g.getTime();
     }
 
     private static void testMinDsat(ReadFromDatabase rfd, int fileIndex, int iteration) {
-        /*for(int j = 0; j < rfd.getFilesSize(); j++){
-            Graph g = rfd.readFile(j);
-            if(g == null){
-                break;
-            }
-            new MinDsat(g);
-            minDsat[i] = g.countColors();
-            minDsatT[i] = g.getTime();
-        }*/
         Graph g = rfd.readFile(fileIndex);
         new MinDsat(g);
+        identifyVerticesAndEdges(rfd,g);
         minDsat[iteration] = g.countColors();
         minDsatT[iteration] = g.getTime();
     }
-
-
 }

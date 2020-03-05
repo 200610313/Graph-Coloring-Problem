@@ -10,10 +10,21 @@ public class Graph {
     private int[] vColors; // Stores the colors of the vertices
     private long start;
     private long finish;
-public void startTimer(){
-    start = System.nanoTime();
-}
+    private int edges;
+    private boolean directed;
 
+    public int getEdges() {
+        if (directed){
+            return edges/2;
+        }
+        else
+            return edges;
+    }
+
+
+    public void startTimer(){
+    start = System.nanoTime();
+    }
     /**
      *
      * @return time elapsed in milliseconds
@@ -29,6 +40,8 @@ public void startTimer(){
     // constructor
     public Graph(int V)
     {
+        this.edges = 0;
+        this.directed = false;
         this.V = V;
         // define the size of array as
         // number of vertices
@@ -51,12 +64,14 @@ public void startTimer(){
     // Adds an edge to an undirected text2Graph
     public void addEdge(Graph g, int src, int dest)
     {
+        directed = false;
         // Add an edge from src to dest.
         g.adjListArray[src].add(dest);
 
         // Since text2Graph is undirected, add an edge from dest
         // to src also
         g.adjListArray[dest].add(src);
+        edges++;
     }
 
     // A utility function to print the adjacency list
@@ -106,7 +121,9 @@ public void startTimer(){
      * @param dest
      */
     public void addDirectedEdge(Graph g, int src, int dest) {
+        directed = true;
         g.adjListArray[src].add(dest);
+        edges++;
     }
 }
 

@@ -1,4 +1,4 @@
-package ReadFromDatabase;
+package textToGraph;
 
 import Graph.Graph;
 
@@ -7,10 +7,20 @@ import java.util.Scanner;
 public class ReadFromDatabase {
     private File files[];
     private int filesRead;
+    private int edgeType;
 
-    public ReadFromDatabase(){
-        //change paren
-        File parentPath = new File("src\\renyi");
+    public String getGraphType() {
+        return graphType;
+    }
+
+    private String graphType;
+    // if 0 == edge is undirected
+    // if 1 == edge is directed
+
+    public ReadFromDatabase(String folder, int edgeType){
+        this.graphType = folder;
+        this.edgeType = edgeType;
+        File parentPath = new File("src\\"+folder);
         files = parentPath.listFiles();
         filesRead = 0;
     }
@@ -46,7 +56,12 @@ public class ReadFromDatabase {
                 if (sc.next().equals("e")) {
                     vertex1 = sc.nextInt() - 1;
                     vertex2 = (sc.nextInt()) - 1;
-                    g.addEdge(g, vertex1, vertex2);
+                    if (edgeType == 0){
+                        g.addEdge(g, vertex1, vertex2);
+                    }
+                    else if (edgeType == 1){
+                        g.addDirectedEdge(g, vertex1,vertex2);
+                    }
                     //
                     //This is for undirected
                     //g.addDirectedEdge(g, vertex1, vertex2);
