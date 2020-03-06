@@ -137,7 +137,7 @@ public class Main {
     private static void generateRenyi() throws IOException {
         int start = 10;
         for (int i = 0; i < 20; i++) {
-            ErdosRenyi er = new ErdosRenyi(start,(i+1)*0.1f);
+            ErdosRenyi er = new ErdosRenyi(start,(i+1)*0.05f);
             start=start+10;
         }
     }
