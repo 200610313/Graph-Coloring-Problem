@@ -63,7 +63,6 @@ public class DSAT {
                 }
                 uncoloredDeg[ithNeighborOfv]--;
             }
-
             uncolored.remove(indexOf(v));
             g.color(v, j);
             vPredecessor = v;
@@ -115,15 +114,6 @@ public class DSAT {
                 if (uncoloredDeg[ithValidNeighbor] == uncoloredDeg[ithValidNeighborWithMaxUncolored]) {
                     ctr2++;
                 }
-            }
-            //  Check if equal saturation
-            if (ctr == numOfValidNeighbors) {
-                nextVertex = ithValidNeighborWithMaxUncolored;
-            } else {
-                if (ctr2 == numOfValidNeighbors)
-                    nextVertex = validAdjacents.get(0);
-                else//  Least degree
-                    nextVertex = ithValidNeighborWithMaxSAT;
             }
             //  If equal saturation, try mindegree
             if (ctr == numOfValidNeighbors){

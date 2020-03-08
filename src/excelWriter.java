@@ -98,7 +98,7 @@ public class excelWriter {
             output_file.close();*/
 
 
-            FileInputStream inputStream = new FileInputStream(new File("src\\Benchmarks.xlsx"));
+            FileInputStream inputStream = new FileInputStream(new File("src\\Benchmarks_2.xlsx"));
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = null;
 
@@ -151,7 +151,7 @@ public class excelWriter {
             cell2Update.setCellValue(tDSAT);
 
             inputStream.close();
-            FileOutputStream outputStream = new FileOutputStream("src\\Benchmarks.xlsx");
+            FileOutputStream outputStream = new FileOutputStream("src\\Benchmarks_2.xlsx");
             workbook.write(outputStream);
             workbook.close();
             outputStream.close();

@@ -3,10 +3,11 @@ import FirstFit.FirstFit;
 import Graph.Graph;
 import MinDSAT.MinDsat;
 import textToGraph.ReadFromDatabase;
+import webpageReader.Scraper;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
-
 
 public class Main {
 
@@ -32,7 +33,7 @@ public class Main {
     private static int N;
     public static void main(String[] args) throws IOException {
 
-        // From my example
+        // G1
         /*Graph g = new Graph(8);
 
         g.addEdge(g,0,1);
@@ -42,7 +43,7 @@ public class Main {
         g.addEdge(g,2,5);
         g.addEdge(g,3,4);*/
 
-        // From Adam Drozdek's
+        // G2
 
       /*  g.addEdge(g,0,4);*/
       /*  g.addEdge(g,0,5);*/
@@ -85,7 +86,9 @@ public class Main {
         boolean exitprogram = false;
         rfd = new ReadFromDatabase("CAR",0);
         do {
-            System.out.print("[0] Change Input Graph\n[1] Benchmark\n[2] Generate SGB Graphs\n[3] Generate CAR Graphs\n[4] Generate Erdos-Renyi\n[5] Quit\n");
+            System.out.println("Input Graph = "+rfd.getGraphType());
+            System.out.println("N = "+N);
+            System.out.print("[0] Change Input Graph\n[1] Benchmark\n[2] Generate SGB Graphs\n[3] Generate CAR Graphs\n[4] Generate Erdos-Renyi\n[5] Quit\n[6] Change Iteration\n");
             input = sc.nextInt();
             if (input == 0){
                 showGraphChoices();
@@ -94,20 +97,35 @@ public class Main {
                 analyze(rfd, N);
             }
             else if (input == 2){
-
+                try {
+                    new Scraper().scrapeSGB();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
             else if (input == 3){
-
+                try {
+                    new Scraper().scrapeCAR();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
             else if (input == 4){
+                System.out.println("Count = ");
+                int n = sc.nextInt();
+                System.out.println("p = ");
+                float p = sc.nextFloat();
                 try {
-                    generateRenyi();
+                    generateRenyi(n,p);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
             else if (input == 5){
                 exitprogram = true;
+            }
+            else if (input == 6){
+                N = sc.nextInt();
             }
             else {
                 showmenu();
@@ -134,10 +152,10 @@ public class Main {
         }
     }
 
-    private static void generateRenyi() throws IOException {
+    private static void generateRenyi(int n, float p) throws IOException {
         int start = 10;
-        for (int i = 0; i < 20; i++) {
-            ErdosRenyi er = new ErdosRenyi(start,(i+1)*0.05f);
+        for (int i = 0; i < n; i++) {
+            ErdosRenyi er = new ErdosRenyi(start,(i+1)*p);
             start=start+10;
         }
     }

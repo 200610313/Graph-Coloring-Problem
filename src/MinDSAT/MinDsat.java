@@ -16,8 +16,8 @@ public class MinDsat {
         g.startTimer();
         this.uncolored = new LinkedList<>();
         this.saturationDeg = new int[g.getV()];
-        initUncolored();// Set all V's to uncolored
-        setMinDegree();// Determine which V has the minDegree
+        //initUncolored();// Set all V's to uncolored
+        initMinDegreeAndUncolored();// Determine which V has the minDegree
         solve();// Starts the main algorithm
     }
 
@@ -27,7 +27,6 @@ public class MinDsat {
         for (int i = 1; i < g.getV(); i++) {
             nextV = color(nextV);
         }
-
     }
 
     //  Colors the vertex, also returns the next vertex to be colored
@@ -50,7 +49,7 @@ public class MinDsat {
             else if (uncolored.size() == g.getV()) {
                 g.color(vertex, 1);
                 uncolored.remove(indexOf(vertex));
-                valid = getValidAdjacentsOf(vertex); // We recompute valid everytime a vertex is colored and we choose from valid
+                valid.removeFirstOccurrence(vertex);
 
                 //  Increment saturation
                 for (int i = 0; i < numOfValidNeighbors; i++) {
@@ -64,7 +63,8 @@ public class MinDsat {
             else {
                 g.color(vertex, getValidColorFor(vertex));
                 uncolored.remove(indexOf(vertex));
-                valid = getValidAdjacentsOf(vertex);
+                valid.removeFirstOccurrence(vertex);
+                //valid = getValidAdjacentsOf(vertex);
 
                 //  Increment saturation
                 for (int i = 0; i < numOfValidNeighbors; i++) {
@@ -85,7 +85,6 @@ public class MinDsat {
             //  Last vertex to color and degree >= 1
             else if (uncolored.size() == 1 && getDegree(vertex) >= 1) {
                 g.color(vertex, getValidColorFor(vertex));
-
                 uncolored.remove(indexOf(vertex));
             }
             //  Last vertex to color and degree == 0
@@ -235,15 +234,15 @@ public class MinDsat {
     }
 
     private void initUncolored() {
-        for (int i = 0; i < g.getV(); i++) {
-            uncolored.add(i);
-        }
+
     }
 
-    private void setMinDegree() {
+    private void initMinDegreeAndUncolored() {
         int min;
         min = 0;
+        uncolored.add(0);
         for (int i = 1; i < g.getV(); i++) {
+            uncolored.add(i);
             if (g.getAdjListArray()[i].size() < g.getAdjListArray()[min].size())
                 min = i;
         }
