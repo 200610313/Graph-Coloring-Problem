@@ -165,7 +165,7 @@ public class MinDsat {
         if (ctr == numOfValidNeighbors){
             //  check first if all degrees equal
             if (ctr2 == numOfValidNeighbors)    // if all equal degrees random
-                nextVertex = randomFromUncolored();
+                nextVertex = validAdjacents.get(0);
             else    // else choose vertex with min degree
                 nextVertex = ithValidNeighborWithMinDegree;
         }

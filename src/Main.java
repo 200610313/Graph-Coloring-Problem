@@ -126,6 +126,14 @@ public class Main {
             }
             else if (input == 6){
                 N = sc.nextInt();
+                minDsat = new int[N];
+                minDsatT = new double[N];
+
+                FF = new int[N];
+                ffT = new double[N];
+
+                DSAT = new int[N];
+                dsatT = new double[N];
             }
             else {
                 showmenu();
@@ -199,8 +207,6 @@ public class Main {
             System.out.println("FIRSTFIT TIME: "+average(ffT,ffT.length));
             System.out.println("\nDSAT COLOR: "+mode(DSAT));
             System.out.println("DSAT TIME: "+average(dsatT,dsatT.length));
-
-
         }
         double secondsElapsed = (double)(finish-start)/1000000000;
         System.out.println("\nBenchmark ended after "+secondsElapsed+" seconds.");
